@@ -1,19 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MinhaApp.Dominio;
+﻿using MinhaApp.Dominio;
 
 namespace MinhaApp.Repositorio
 {
     public class AlunoRepositorio : IAlunoRepositorio
     {
-        private List<Aluno> _alunos = new List<Aluno>();
+        private readonly MinhaAppDbContext _context;
+
+        public AlunoRepositorio(MinhaAppDbContext context)
+        {
+            _context = context;
+        }
+
+        public List<Aluno> ObterTodos()
+        {
+            return _context.Alunos.ToList();
+        }
 
         public void Salvar(Aluno aluno)
         {
-            _alunos.Add(aluno);
+            _context.Alunos.Add(aluno);
+            _context.SaveChanges();
         }
     }
 }

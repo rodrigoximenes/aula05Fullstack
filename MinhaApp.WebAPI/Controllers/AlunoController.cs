@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MinhaApp.Dominio;
 using MinhaApp.Servico;
+using MinhaApp.Servico.DTOs;
 
 namespace MinhaApp.WebAPI.Controllers
 {
@@ -17,10 +18,17 @@ namespace MinhaApp.WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AdicionarAluno([FromBody] Aluno aluno)
+        public IActionResult AdicionarAluno([FromBody] AlunoDto alunoDto)
         {
-            bool aprovado = _alunoServico.AdicionarAluno(aluno.Nome, aluno.Nota);
+            bool aprovado = _alunoServico.AdicionarAluno(alunoDto);
             return Ok(aprovado);
+        }
+
+        [HttpGet]
+        public IActionResult ListarAlunos()
+        {
+            var alunos = _alunoServico.ListarAlunos();
+            return Ok(alunos);
         }
     }
 }

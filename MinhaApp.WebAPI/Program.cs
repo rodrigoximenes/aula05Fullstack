@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using MinhaApp.Repositorio;
 using MinhaApp.Servico;
 
@@ -9,6 +10,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<MinhaAppDbContext>(options => 
+    options.UseInMemoryDatabase("MinhaAppDB"));
 
 builder.Services.AddScoped<IAlunoRepositorio, AlunoRepositorio>();
 builder.Services.AddScoped<IAlunoServico, AlunoServico>();
